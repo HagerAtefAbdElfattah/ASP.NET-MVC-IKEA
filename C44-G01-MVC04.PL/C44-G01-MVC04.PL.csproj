@@ -7,4 +7,15 @@
     <RootNamespace>C44_G01_MVC04.PL</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.9">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\C44-G01-MVC04.BLL\C44-G01-MVC04.BLL.csproj" />
+  </ItemGroup>
+
 </Project>
