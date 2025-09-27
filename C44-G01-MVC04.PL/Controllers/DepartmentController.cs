@@ -137,5 +137,38 @@ namespace C44_G01_MVC04.PL.Controllers
             }
             
         }
+
+        [HttpGet]
+        public IActionResult Delete([FromRoute]int? id) 
+        {
+            if (id == null) return BadRequest();
+
+            var department = departmentServices.GetDepartmentById(id.Value);
+
+            if (department == null)
+            {
+                return NotFound();
+            }
+
+            return View(department);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+           var result = departmentServices.DeleteDepartment(id);
+            if (result > 0) { return RedirectToAction("Index"); }
+            else
+            {
+                var department = departmentServices.GetDepartmentById(id);
+
+                if (department == null)
+                {
+                    return NotFound();
+                }
+                ModelState.AddModelError(string.Empty, "something went wrong!");
+                return View(department);
+            }
+        }
     }
 }
