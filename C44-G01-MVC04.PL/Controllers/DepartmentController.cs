@@ -1,5 +1,6 @@
 ﻿using C44_G01_MVC04.BLL.Dto_s.DepartmentDto_s;
 using C44_G01_MVC04.BLL.Services;
+using C44_G01_MVC04.PL.ViewModels.DepartmentVms;
 using Microsoft.AspNetCore.Mvc;
 
 namespace C44_G01_MVC04.PL.Controllers
@@ -58,6 +59,7 @@ namespace C44_G01_MVC04.PL.Controllers
             }
         }
 
+        [HttpGet]
         public IActionResult Details(int? id)
         {
             if (id == null) return BadRequest();
@@ -70,6 +72,70 @@ namespace C44_G01_MVC04.PL.Controllers
             }
 
             return View(department);
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int? id)
+        {
+            if (id == null) return BadRequest();
+
+            var department = departmentServices.GetDepartmentById(id.Value);
+
+            if (department == null)
+            {
+                return NotFound();
+            }
+
+            var viewDepartment = new DepartmentViewModel()
+            { 
+                Id = department.Id,
+                Name = department.Name,
+                Code = department.Code,
+                Description = department.Description,
+            };
+
+            return View(viewDepartment);
+        }
+
+        public IActionResult Edit([FromRoute]int? id, DepartmentViewModel model)
+        {
+            if (!ModelState.IsValid) return View(model);
+            var department = new UpdatedDepartmentDto()
+            {
+                Id = id.Value,
+                Name = model.Name,
+                Code = model.Code,
+                Description = model.Description,
+            };
+
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    int result = departmentServices.UpdateDepartment(department);
+
+                    if (result > 0) return RedirectToAction("Index");
+                    else ModelState.AddModelError(string.Empty, "Department Can't be updated");
+                    return View(model);
+                }
+                else
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception ex)
+            {
+                if (webHost.IsDevelopment())
+                {
+                    logger.LogError(ex.Message);
+                    return View(department);
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            
         }
     }
 }
