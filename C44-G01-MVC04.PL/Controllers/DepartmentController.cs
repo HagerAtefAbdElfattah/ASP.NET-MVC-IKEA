@@ -54,9 +54,22 @@ namespace C44_G01_MVC04.PL.Controllers
                 else
                 {
                     throw;
-
                 } 
             }
+        }
+
+        public IActionResult Details(int? id)
+        {
+            if (id == null) return BadRequest();
+          
+            var department = departmentServices.GetDepartmentById(id.Value);
+
+            if (department == null)
+            {
+                return NotFound();
+            }
+
+            return View(department);
         }
     }
 }
