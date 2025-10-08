@@ -26,7 +26,7 @@ namespace C44_G01_MVC04.PL
             builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             builder.Services.AddScoped<IEmployeeServices, EmployeeServices>();
 
-            builder.Services.AddAutoMapper(m => m.AddMaps(typeof(ProjectMapperProfile).Assembly));
+            builder.Services.AddAutoMapper(cfg => { }, (typeof(ProjectMapperProfile)));
             var app = builder.Build();
 
             
