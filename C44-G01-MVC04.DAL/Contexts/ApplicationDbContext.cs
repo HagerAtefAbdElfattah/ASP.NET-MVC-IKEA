@@ -1,4 +1,5 @@
 ﻿using C44_G01_MVC04.DAL.Models.Department;
+using C44_G01_MVC04.DAL.Models.Employees;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,5 +21,6 @@ namespace C44_G01_MVC04.DAL.Contexts
         }
 
         public DbSet<Department> departments { get; set; } 
+        public DbSet<Employee> Employees { get; set; }
     }
 }
