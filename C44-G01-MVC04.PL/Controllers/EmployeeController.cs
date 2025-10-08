@@ -1,4 +1,5 @@
 ﻿using C44_G01_MVC04.BLL.Dto_s.EmployeeDto_s;
+using C44_G01_MVC04.BLL.Services.DepartmentsServices;
 using C44_G01_MVC04.BLL.Services.EmployeesServices;
 using Microsoft.AspNetCore.Mvc;
 
@@ -57,6 +58,21 @@ namespace C44_G01_MVC04.PL.Controllers
                     throw;
                 }
             }
+        }
+
+        [HttpGet]
+        public IActionResult Details(int? id)
+        {
+            if (id == null) return BadRequest();
+
+            var employee = employeeServices.GetEmployeeById(id.Value);
+
+            if (employee == null)
+            {
+                return NotFound();
+            }
+
+            return View(employee);
         }
 
     }
