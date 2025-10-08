@@ -9,18 +9,8 @@ namespace C44_G01_MVC04.BLL.Dto_s.DepartmentDto_s
 {
     public class DepartmentDetailsDto
     {
-        //constructor mapping
-        public DepartmentDetailsDto(Department department)
-        {
-            Id = department.Id;
-            Name = department.Name;
-            Code = department.Code;
-            Description = department.Description;
-            CreatedBy = department.CreatedBy;
-            CreatedOn = DateOnly.FromDateTime(department.CreatedOn);
-            LastModifiedBy = department.LastModifiedBy;
-            LastModifiedOn = DateOnly.FromDateTime(department.LastModifiedOn);
-        }
+        
+       
 
         public int Id { get; set; }
         public string Name { get; set; }
