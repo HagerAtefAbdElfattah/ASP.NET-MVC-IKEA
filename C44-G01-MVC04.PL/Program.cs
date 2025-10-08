@@ -1,4 +1,5 @@
-using C44_G01_MVC04.BLL.Services;
+using C44_G01_MVC04.BLL.Services.DepartmentsServices;
+using C44_G01_MVC04.BLL.Services.EmployeesServices;
 using C44_G01_MVC04.DAL.Contexts;
 using C44_G01_MVC04.DAL.Repositories.DepartmentRepo;
 using C44_G01_MVC04.DAL.Repositories.EmployeeRepo;
@@ -21,6 +22,7 @@ namespace C44_G01_MVC04.PL
             builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
             builder.Services.AddScoped<IDepartmentServices, DepartmentServices>();
             builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            builder.Services.AddScoped<IEmployeeServices, EmployeeServices>();
             var app = builder.Build();
 
             

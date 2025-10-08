@@ -1,5 +1,5 @@
 ﻿using C44_G01_MVC04.BLL.Dto_s.DepartmentDto_s;
-using C44_G01_MVC04.BLL.Services;
+using C44_G01_MVC04.BLL.Services.DepartmentsServices;
 using C44_G01_MVC04.PL.ViewModels.DepartmentVms;
 using Microsoft.AspNetCore.Mvc;
 

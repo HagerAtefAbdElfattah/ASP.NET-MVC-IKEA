@@ -3,7 +3,7 @@ using C44_G01_MVC04.BLL.Dto_s.DepartmentDto_s;
 using C44_G01_MVC04.BLL.Factories.DepartmentFactory;
 using C44_G01_MVC04.DAL.Repositories.DepartmentRepo;
 
-namespace C44_G01_MVC04.BLL.Services
+namespace C44_G01_MVC04.BLL.Services.DepartmentsServices
 {
     public class DepartmentServices: IDepartmentServices
     {
