@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="15.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\C44-G01-MVC04.DAL\C44-G01-MVC04.DAL.csproj" />
   </ItemGroup>
 

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace C44_G01_MVC04.BLL.Services
+namespace C44_G01_MVC04.BLL.Services.DepartmentsServices
 {
     public interface IDepartmentServices
     {

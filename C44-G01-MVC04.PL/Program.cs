@@ -1,6 +1,10 @@
-using C44_G01_MVC04.BLL.Services;
+using C44_G01_MVC04.BLL.Common.Mappingprofiles;
+using C44_G01_MVC04.BLL.Services.DepartmentsServices;
+using C44_G01_MVC04.BLL.Services.EmployeesServices;
 using C44_G01_MVC04.DAL.Contexts;
-using C44_G01_MVC04.DAL.Reposatories.DepartmentRepo;
+using C44_G01_MVC04.DAL.Repositories.DepartmentRepo;
+using C44_G01_MVC04.DAL.Repositories.EmployeeRepo;
+using Microsoft.Build.Evaluation;
 using Microsoft.EntityFrameworkCore;
 
 namespace C44_G01_MVC04.PL
@@ -17,8 +21,12 @@ namespace C44_G01_MVC04.PL
             {
                 option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
-            builder.Services.AddScoped<IDepartmentReposatory, DepartmentReposatory>();
+            builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
             builder.Services.AddScoped<IDepartmentServices, DepartmentServices>();
+            builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            builder.Services.AddScoped<IEmployeeServices, EmployeeServices>();
+
+            builder.Services.AddAutoMapper(cfg => { }, (typeof(ProjectMapperProfile)));
             var app = builder.Build();
 
             
