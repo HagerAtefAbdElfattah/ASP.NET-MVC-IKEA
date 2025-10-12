@@ -16,7 +16,7 @@ namespace C44_G01_MVC04.DAL.Repositories.GenericRepository
         public int Update(TEntity Item);
         public int Delete(int id);
 
-        public IEnumerable<TEntity> GetEnumerable();
-        public IQueryable<TEntity> GetQueryable();
+        //public IEnumerable<TEntity> GetEnumerable();
+        //public IQueryable<TEntity> GetQueryable();
     }
 }

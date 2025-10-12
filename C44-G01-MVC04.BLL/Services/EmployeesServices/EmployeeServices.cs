@@ -25,34 +25,34 @@ namespace C44_G01_MVC04.BLL.Services.EmployeesServices
             this.mapper = mapper;
         }
         public IEnumerable<EmployeeDto> GetAllEmployee()
-        //=>  mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeDto>>(_reposatory.GetAll());
+        => mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeDto>>(_reposatory.GetAll());
 
         //break point here to see the generated SQL query
-        {
-            //var result = _reposatory.GetEnumerable().Where(e => e.IsActive == true)
-            //                                         .Select(e => new EmployeeDto
-            //                                          {
-            //                                              Id = e.Id,
-            //                                              Name = e.Name,
-            //                                              Age = e.Age,
-            //                                              Salary = e.Salary,
-            //                                              IsActive = e.IsActive,
-            //                                              Email = e.Email,
-            //                                          });
-            //return result.ToList();
+        //{
+        //    //var result = _reposatory.GetEnumerable().Where(e => e.IsActive == true)
+        //    //                                         .Select(e => new EmployeeDto
+        //    //                                          {
+        //    //                                              Id = e.Id,
+        //    //                                              Name = e.Name,
+        //    //                                              Age = e.Age,
+        //    //                                              Salary = e.Salary,
+        //    //                                              IsActive = e.IsActive,
+        //    //                                              Email = e.Email,
+        //    //                                          });
+        //    //return result.ToList();
 
-            var result = _reposatory.GetQueryable().Where(e => e.IsActive == true)
-                                                    .Select(e => new EmployeeDto
-                                                    {
-                                                        Id = e.Id,
-                                                        Name = e.Name,
-                                                        Age = e.Age,
-                                                        Salary = e.Salary,
-                                                        IsActive = e.IsActive,
-                                                        Email = e.Email,
-                                                    });
-            return result.ToList();
-        }
+        //    var result = _reposatory.GetQueryable().Where(e => e.IsActive == true)
+        //                                            .Select(e => new EmployeeDto
+        //                                            {
+        //                                                Id = e.Id,
+        //                                                Name = e.Name,
+        //                                                Age = e.Age,
+        //                                                Salary = e.Salary,
+        //                                                IsActive = e.IsActive,
+        //                                                Email = e.Email,
+        //                                            });
+        //    return result.ToList();
+        //}
 
 
         public EmployeeDetailsDto GetEmployeeById(int id)

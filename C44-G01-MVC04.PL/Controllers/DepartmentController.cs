@@ -25,9 +25,11 @@ namespace C44_G01_MVC04.PL.Controllers
         }
 
         [HttpGet]
+        
         public IActionResult Create() => View();
 
         [HttpPost]
+        //[ValidateAntiForgeryToken]
         public IActionResult Create(CreatedDepartmentDto dept)
         {
             try 
