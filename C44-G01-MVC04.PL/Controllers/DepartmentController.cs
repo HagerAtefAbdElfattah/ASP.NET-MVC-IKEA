@@ -21,6 +21,20 @@ namespace C44_G01_MVC04.PL.Controllers
 
         public IActionResult Index()
         {
+            //viewData is type of dictionary
+            // key is string and value is object
+            // used to pass data from controller to view
+            // it is used for small amount of data
+            // it use explicit casting
+
+            //ViewData["Message"] = "Hello from View Data";
+
+            //ViewBag is a dynamic object
+            // it is used to pass data from controller to view
+            // it is used for small amount of data
+            // it use implicit casting
+            ViewBag.Message = "Hello from View Bag";
+
             var dept = departmentServices.GetAllDepartments();
             return View(dept);
         }
@@ -49,12 +63,23 @@ namespace C44_G01_MVC04.PL.Controllers
 
                     int result = departmentServices.AddDepartment(department);
 
-                    if (result > 0) return RedirectToAction("Index");
+                    if (result > 0)
+                    {
+
+                        //TempData is type of dictionary
+                        // key is string and value is object
+                        // it is used to pass data from one action to another action
+                        //it store data in session
+                        //it needs explicit casting
+                        TempData["Message"] = $"Department {department.Name} has been created successfully";
+                        return RedirectToAction("Index");
+                    } 
                 else ModelState.AddModelError(string.Empty, "Department Can't be created");
                 return View(department);
                 }
                 else
                 {
+                    TempData["Message"] = $"Department can not be created";
                     return View(model);
                 }
             } 
