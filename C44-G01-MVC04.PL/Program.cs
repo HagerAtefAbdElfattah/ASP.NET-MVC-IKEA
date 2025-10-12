@@ -6,6 +6,8 @@ using C44_G01_MVC04.DAL.Repositories.DepartmentRepo;
 using C44_G01_MVC04.DAL.Repositories.EmployeeRepo;
 using Microsoft.Build.Evaluation;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace C44_G01_MVC04.PL
 {
@@ -40,6 +42,25 @@ namespace C44_G01_MVC04.PL
                 .WithStaticAssets();
 
             app.Run();
+
+
+
+            #region session-6 video1 
+            //////////////// IQueryable<T> /////////////////////////////////
+
+            // Works with remote data sources(like databases via Entity Framework)
+            // Deferred execution but query is built as an expression tree
+            // LINQ to SQL / Entities
+            //The database executes the query
+            // Translated to SQL before execution
+
+
+            ////////////// IEnumerable<T> /////////////////////////////////
+            // Works with in-memory collections (like List<T>)
+            // Immediate execution
+            // LINQ to Objects
+            // The client executes the query
+            #endregion
         }
     }
 }
