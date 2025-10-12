@@ -16,8 +16,10 @@ namespace C44_G01_MVC04.BLL.Common.Mappingprofiles
     {
         public ProjectMapperProfile()
         {
-            CreateMap<Employee,EmployeeDto>().ReverseMap();
-            CreateMap<Employee, EmployeeDetailsDto>().ReverseMap();
+            CreateMap<Employee,EmployeeDto>()
+                .ForMember(d => d.DepartmentName,option => option.MapFrom(scr => scr.Department != null ? scr.Department.Name : "N/A")).ReverseMap();
+            CreateMap<Employee, EmployeeDetailsDto>()
+                .ForMember(d => d.DepartmentName, option => option.MapFrom(scr => scr.Department != null ? scr.Department.Name : "N/A")).ReverseMap(); ;
             CreateMap<CreatedEmployeeDto, Employee>().ForMember(des => des.EmployeeType,option =>option.MapFrom(src => src.EmployeeType));
             CreateMap<UpdatedEmployeeDto, Employee>().ReverseMap();
 

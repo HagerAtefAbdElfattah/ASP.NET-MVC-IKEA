@@ -14,12 +14,14 @@ namespace C44_G01_MVC04.PL.Controllers
         private readonly IEmployeeServices employeeServices;
         private readonly ILogger<EmployeeController> logger;
         private readonly IWebHostEnvironment environment;
+        //private readonly IDepartmentServices departmentServices;
 
         public EmployeeController(IEmployeeServices employeeServices,ILogger<EmployeeController> logger,IWebHostEnvironment environment)
         {
             this.employeeServices = employeeServices;
             this.logger = logger;
             this.environment = environment;
+            //this.departmentServices = departmentServices;
         }
 
         public IActionResult Index()
@@ -29,7 +31,12 @@ namespace C44_G01_MVC04.PL.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create() => View();
+        public IActionResult Create()
+        {
+            //ViewData["Departments"] = departmentServices.GetAllDepartments();
+            return View();
+        }
+       
 
         [HttpPost]
         
@@ -50,6 +57,7 @@ namespace C44_G01_MVC04.PL.Controllers
                         Email = model.Email,
                         PhoneNumber = model.PhoneNumber,
                         HiringDate = model.HiringDate,
+                        DepartmentId= model.DepartmentId,
                     };
                     int result = employeeServices.AddEmployee(employee);
 

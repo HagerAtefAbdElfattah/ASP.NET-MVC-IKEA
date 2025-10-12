@@ -26,6 +26,7 @@ namespace C44_G01_MVC04.PL
             builder.Services.AddDbContext <ApplicationDbContext>(option =>
             {
                 option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+                option.UseLazyLoadingProxies();
             });
             builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
             builder.Services.AddScoped<IDepartmentServices, DepartmentServices>();

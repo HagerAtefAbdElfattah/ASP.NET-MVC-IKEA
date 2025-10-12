@@ -10,6 +10,7 @@ namespace C44_G01_MVC04.DAL.Configurations
             D.Property(d => d.Id).UseIdentityColumn(10,10);
             D.Property(d => d.Name).HasColumnType("varchar(20)");
             D.Property(d => d.Code).HasColumnType("varchar(20)");
+            D.HasMany(d => d.Employees).WithOne(e => e.Department).HasForeignKey(e => e.DepartmentId).OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

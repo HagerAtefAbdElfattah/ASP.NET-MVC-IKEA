@@ -1,5 +1,12 @@
-﻿@using C44_G01_MVC04.PL.ViewModels.EmployeeVms
+﻿@using C44_G01_MVC04.BLL.Services.DepartmentsServices
+@using C44_G01_MVC04.PL.ViewModels.EmployeeVms
 @model EmployeeViewModel
+
+@inject IDepartmentServices _departmentServices
+
+@{
+    var Departments = new SelectList(_departmentServices.GetAllDepartments(), nameof(DepartmentDto.Id), nameof(DepartmentDto.Name));
+}
 <div class="form-group mb-3 col-6">
     <label class="form-label" asp-for="Name"></label>
     <input asp-for="Name" class="form-control" />
@@ -30,6 +37,16 @@
     <input asp-for="HiringDate" class="form-control" />
     <span asp-validation-for="HiringDate" class="text-danger"></span>
 </div>
+
+<div class="form-group mb-3 col-6">
+    <label class="form-label" asp-for="DepartmentId"></label>
+    <select asp-for="DepartmentId" asp-items="@Departments"
+            class="form-control">
+        <option value="@null">Choose Department...</option>
+    </select>
+    <span asp-validation-for="DepartmentId" class="text-danger"></span>
+</div>
+
 <div class="form-group mb-3 col-6">
     <label class="form-label" asp-for="Salary"></label>
     <input asp-for="Salary" class="form-control" />
