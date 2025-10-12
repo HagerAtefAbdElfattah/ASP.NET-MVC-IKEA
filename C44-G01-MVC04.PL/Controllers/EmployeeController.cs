@@ -3,6 +3,7 @@ using C44_G01_MVC04.BLL.Dto_s.EmployeeDto_s;
 using C44_G01_MVC04.BLL.Services.DepartmentsServices;
 using C44_G01_MVC04.BLL.Services.EmployeesServices;
 using C44_G01_MVC04.PL.ViewModels.DepartmentVms;
+using C44_G01_MVC04.PL.ViewModels.EmployeeVms;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 
@@ -32,21 +33,33 @@ namespace C44_G01_MVC04.PL.Controllers
 
         [HttpPost]
         
-        public IActionResult Create(CreatedEmployeeDto dto)
+        public IActionResult Create(EmployeeViewModel model)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    int result = employeeServices.AddEmployee(dto);
+                    CreatedEmployeeDto employee = new CreatedEmployeeDto()
+                    {
+                        
+                        Name = model.Name,
+                        Age = model.Age,
+                        Address = model.Address,
+                        Salary = model.Salary,
+                        IsActive = model.IsActive,
+                        Email = model.Email,
+                        PhoneNumber = model.PhoneNumber,
+                        HiringDate = model.HiringDate,
+                    };
+                    int result = employeeServices.AddEmployee(employee);
 
                     if (result > 0) return RedirectToAction("Index");
                     else ModelState.AddModelError(string.Empty, "Employee Can't be created");
-                    return View(dto);
+                    return View(model);
                 }
                 else
                 {
-                    return View(dto);
+                    return View(model);
                 }
             }
             catch (Exception ex)
@@ -54,7 +67,7 @@ namespace C44_G01_MVC04.PL.Controllers
                 if (environment.IsDevelopment())
                 {
                     logger.LogError(ex.Message);
-                    return View(dto);
+                    return View(model);
                 }
                 else
                 {
@@ -90,9 +103,9 @@ namespace C44_G01_MVC04.PL.Controllers
                 return NotFound();
             }
 
-            var viewEmployee = new UpdatedEmployeeDto()
+            var viewEmployee = new EmployeeViewModel()
             {
-              Id = employee.Id,
+                Id = employee.Id,
                 Name = employee.Name,
                 Age = employee.Age,
                 Address = employee.Address,
@@ -107,12 +120,12 @@ namespace C44_G01_MVC04.PL.Controllers
         }
 
         [ HttpPost]
-        public IActionResult Edit([FromRoute] int? id, UpdatedEmployeeDto model)
+        public IActionResult Edit([FromRoute] int? id,EmployeeViewModel  model)
         {
             if (!ModelState.IsValid) return View(model);
-            var emp = new UpdatedEmployeeDto()
+            var employee = new UpdatedEmployeeDto()
             {
-               Id = id.Value,
+                Id = id.Value,
                 Name = model.Name,
                 Age = model.Age,
                 Address = model.Address,
@@ -127,7 +140,7 @@ namespace C44_G01_MVC04.PL.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    int result = employeeServices.UpdateEmployee(emp);
+                    int result = employeeServices.UpdateEmployee(employee);
 
                     if (result > 0) return RedirectToAction("Index");
                     else ModelState.AddModelError(string.Empty, "Employee Can't be updated");
@@ -143,7 +156,7 @@ namespace C44_G01_MVC04.PL.Controllers
                 if (environment.IsDevelopment())
                 {
                     logger.LogError(ex.Message);
-                    return View(emp);
+                    return View(employee);
                 }
                 else
                 {

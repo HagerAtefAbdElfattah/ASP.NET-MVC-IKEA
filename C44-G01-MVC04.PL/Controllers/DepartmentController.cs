@@ -1,5 +1,6 @@
 ﻿using C44_G01_MVC04.BLL.Dto_s.DepartmentDto_s;
 using C44_G01_MVC04.BLL.Services.DepartmentsServices;
+using C44_G01_MVC04.DAL.Models.Department;
 using C44_G01_MVC04.PL.ViewModels.DepartmentVms;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,21 +31,31 @@ namespace C44_G01_MVC04.PL.Controllers
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public IActionResult Create(CreatedDepartmentDto dept)
+        public IActionResult Create(DepartmentViewModel model)
         {
             try 
             { 
                 if (ModelState.IsValid)
                 {
-                int result = departmentServices.AddDepartment(dept);
+               
 
-                if (result > 0) return RedirectToAction("Index");
+                    CreatedDepartmentDto department = new CreatedDepartmentDto()
+                    {
+                        
+                        Name = model.Name,
+                        Code = model.Code,
+                        Description = model.Description,
+                    };
+
+                    int result = departmentServices.AddDepartment(department);
+
+                    if (result > 0) return RedirectToAction("Index");
                 else ModelState.AddModelError(string.Empty, "Department Can't be created");
-                return View(dept);
+                return View(department);
                 }
                 else
                 {
-                    return View(dept);
+                    return View(model);
                 }
             } 
             catch(Exception ex) 
@@ -52,7 +63,7 @@ namespace C44_G01_MVC04.PL.Controllers
                 if (webHost.IsDevelopment())
                 {
                     logger.LogError(ex.Message);
-                    return View(dept);
+                    return View(model);
                 }
                 else
                 {
