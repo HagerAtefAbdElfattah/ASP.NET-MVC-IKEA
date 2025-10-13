@@ -27,5 +27,6 @@ namespace C44_G01_MVC04.PL.ViewModels.EmployeeVms
         public EmployeeType EmployeeType { get; set; }
 
         public int DepartmentId { get; set; }
+        public string? DepartmentName { get; set; } 
     }
 }

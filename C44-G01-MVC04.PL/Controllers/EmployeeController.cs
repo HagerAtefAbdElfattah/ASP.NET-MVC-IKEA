@@ -122,6 +122,7 @@ namespace C44_G01_MVC04.PL.Controllers
                 Email = employee.Email,
                 PhoneNumber = employee.PhoneNumber,
                 HiringDate = employee.HiringDate,
+                DepartmentName = employee.DepartmentName,
             };
 
             return View(viewEmployee);
@@ -142,6 +143,7 @@ namespace C44_G01_MVC04.PL.Controllers
                 Email = model.Email,
                 PhoneNumber = model.PhoneNumber,
                 HiringDate = model.HiringDate,
+                DepartmentId = model.DepartmentId,
             };
 
             try

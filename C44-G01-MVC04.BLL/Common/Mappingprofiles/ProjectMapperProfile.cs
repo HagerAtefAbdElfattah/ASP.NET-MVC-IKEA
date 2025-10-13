@@ -19,9 +19,12 @@ namespace C44_G01_MVC04.BLL.Common.Mappingprofiles
             CreateMap<Employee,EmployeeDto>()
                 .ForMember(d => d.DepartmentName,option => option.MapFrom(scr => scr.Department != null ? scr.Department.Name : "N/A")).ReverseMap();
             CreateMap<Employee, EmployeeDetailsDto>()
-                .ForMember(d => d.DepartmentName, option => option.MapFrom(scr => scr.Department != null ? scr.Department.Name : "N/A")).ReverseMap(); ;
-            CreateMap<CreatedEmployeeDto, Employee>().ForMember(des => des.EmployeeType,option =>option.MapFrom(src => src.EmployeeType));
-            CreateMap<UpdatedEmployeeDto, Employee>().ReverseMap();
+                .ForMember(d => d.DepartmentName, option => option.MapFrom(scr => scr.Department != null ? scr.Department.Name : "N/A")).ReverseMap();
+            CreateMap<CreatedEmployeeDto, Employee>()
+                .ForMember(des => des.EmployeeType,option =>option.MapFrom(src => src.EmployeeType))
+                .ForMember(d => d.DepartmentId, option => option.MapFrom(scr => scr.DepartmentId)).ReverseMap(); ;
+            CreateMap<UpdatedEmployeeDto, Employee>()
+                .ForMember(d => d.DepartmentId, option => option.MapFrom(scr => scr.DepartmentId)).ReverseMap(); 
 
 
             CreateMap<DateTime, DateOnly>().ConvertUsing(src => DateOnly.FromDateTime(src));
