@@ -23,5 +23,6 @@ namespace C44_G01_MVC04.BLL.Dto_s.EmployeeDto_s
         public DateTime CreatedOn { get; set; }
         public int LastModifiedBy { get; set; }
         public DateTime LastModifiedOn { get; set; }
+        public string? DepartmentName { get; set; }
     }
 }

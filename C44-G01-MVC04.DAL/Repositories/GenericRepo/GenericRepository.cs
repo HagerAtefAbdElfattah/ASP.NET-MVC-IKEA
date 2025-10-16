@@ -47,5 +47,15 @@ namespace C44_G01_MVC04.DAL.Repositories.GenericRepository
             _context.Set<TEntity>().Remove(entity);
             return _context.SaveChanges();
         }
+
+        //public IEnumerable<TEntity> GetEnumerable()
+        //{
+        //    return _context.Set<TEntity>();
+        //}
+
+        //public IQueryable<TEntity> GetQueryable()
+        //{
+        //    return _context.Set<TEntity>();
+        //}
     }
 }

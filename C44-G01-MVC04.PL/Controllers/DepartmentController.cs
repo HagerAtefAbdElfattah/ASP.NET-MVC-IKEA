@@ -1,5 +1,6 @@
 ﻿using C44_G01_MVC04.BLL.Dto_s.DepartmentDto_s;
 using C44_G01_MVC04.BLL.Services.DepartmentsServices;
+using C44_G01_MVC04.DAL.Models.Department;
 using C44_G01_MVC04.PL.ViewModels.DepartmentVms;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,29 +21,66 @@ namespace C44_G01_MVC04.PL.Controllers
 
         public IActionResult Index()
         {
+            //viewData is type of dictionary
+            // key is string and value is object
+            // used to pass data from controller to view
+            // it is used for small amount of data
+            // it use explicit casting
+
+            //ViewData["Message"] = "Hello from View Data";
+
+            //ViewBag is a dynamic object
+            // it is used to pass data from controller to view
+            // it is used for small amount of data
+            // it use implicit casting
+            ViewBag.Message = "Hello from View Bag";
+
             var dept = departmentServices.GetAllDepartments();
             return View(dept);
         }
 
         [HttpGet]
+        
         public IActionResult Create() => View();
 
         [HttpPost]
-        public IActionResult Create(CreatedDepartmentDto dept)
+        //[ValidateAntiForgeryToken]
+        public IActionResult Create(DepartmentViewModel model)
         {
             try 
             { 
                 if (ModelState.IsValid)
                 {
-                int result = departmentServices.AddDepartment(dept);
+               
 
-                if (result > 0) return RedirectToAction("Index");
+                    CreatedDepartmentDto department = new CreatedDepartmentDto()
+                    {
+                        
+                        Name = model.Name,
+                        Code = model.Code,
+                        Description = model.Description,
+                    };
+
+                    int result = departmentServices.AddDepartment(department);
+
+                    if (result > 0)
+                    {
+
+                        //TempData is type of dictionary
+                        // key is string and value is object
+                        // it is used to pass data from one action to another action
+                        //it store data in session
+                        //it needs explicit casting
+                        TempData["Message"] = $"Department {department.Name} has been created successfully";
+                        return RedirectToAction("Index");
+                    } 
                 else ModelState.AddModelError(string.Empty, "Department Can't be created");
-                return View(dept);
+                return View(department);
                 }
                 else
                 {
-                    return View(dept);
+                    TempData["Message"] = $"Department can not be created";
+                    return View(model);
                 }
             } 
             catch(Exception ex) 
@@ -50,7 +88,7 @@ namespace C44_G01_MVC04.PL.Controllers
                 if (webHost.IsDevelopment())
                 {
                     logger.LogError(ex.Message);
-                    return View(dept);
+                    return View(model);
                 }
                 else
                 {
