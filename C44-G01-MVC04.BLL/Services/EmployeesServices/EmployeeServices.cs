@@ -5,6 +5,7 @@ using C44_G01_MVC04.BLL.Factories.DepartmentFactory;
 using C44_G01_MVC04.DAL.Models.Employees;
 using C44_G01_MVC04.DAL.Repositories.DepartmentRepo;
 using C44_G01_MVC04.DAL.Repositories.EmployeeRepo;
+using C44_G01_MVC04.DAL.UOW;
 using Microsoft.EntityFrameworkCore.Metadata;
 using System;
 using System.Collections.Generic;
@@ -16,20 +17,20 @@ namespace C44_G01_MVC04.BLL.Services.EmployeesServices
 {
     public class EmployeeServices : IEmployeeServices
     {
-        private readonly IEmployeeRepository _reposatory;
+        private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
 
-        public EmployeeServices(IEmployeeRepository reposatory,IMapper mapper)
+        public EmployeeServices(IUnitOfWork unitOfWork,IMapper mapper)
         {
-            _reposatory = reposatory;
+            this.unitOfWork = unitOfWork;
             this.mapper = mapper;
         }
         public IEnumerable<EmployeeDto> GetAllEmployee()
-        => mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeDto>>(_reposatory.GetAll());
+        => mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeDto>>(unitOfWork.EmployeeRepository.GetAll());
 
 
         public IEnumerable<EmployeeDto> GetSearchedEmployees(string searchValue)
-        => mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeDto>>(_reposatory.GetAll(searchValue));
+        => mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeDto>>(unitOfWork.EmployeeRepository.GetAll(searchValue));
 
         //break point here to see the generated SQL query
         //{
@@ -60,7 +61,7 @@ namespace C44_G01_MVC04.BLL.Services.EmployeesServices
 
 
         public EmployeeDetailsDto GetEmployeeById(int id)
-        => mapper.Map<Employee, EmployeeDetailsDto>(_reposatory.GetById(id));
+        => mapper.Map<Employee, EmployeeDetailsDto>(unitOfWork.EmployeeRepository.GetById(id));
 
         public int AddEmployee(CreatedEmployeeDto dto)
         {
@@ -69,8 +70,8 @@ namespace C44_G01_MVC04.BLL.Services.EmployeesServices
             emp.CreatedOn = DateTime.Now;
             emp.LastModifiedBy = 1;
             emp.LastModifiedOn = DateTime.Now; 
-            return _reposatory.Add(emp);
-
+            unitOfWork.EmployeeRepository.Add(emp);
+            return unitOfWork.Complete();
         }
 
         public int UpdateEmployee(UpdatedEmployeeDto dto)
@@ -78,10 +79,13 @@ namespace C44_G01_MVC04.BLL.Services.EmployeesServices
             var emp = mapper.Map<UpdatedEmployeeDto, Employee>(dto);
             emp.LastModifiedBy = 1;
             emp.LastModifiedOn = DateTime.Now;
-            return _reposatory.Update(emp);
+            unitOfWork.EmployeeRepository.Update(emp);
+            return unitOfWork.Complete();
         }
         public int DeleteEmployee(int id)
-        => _reposatory.Delete(id);
-
+        {
+            unitOfWork.EmployeeRepository.Delete(id);
+            return unitOfWork.Complete();
+        }
     }
 }

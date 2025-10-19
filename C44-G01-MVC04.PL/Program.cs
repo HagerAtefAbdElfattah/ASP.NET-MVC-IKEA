@@ -4,6 +4,7 @@ using C44_G01_MVC04.BLL.Services.EmployeesServices;
 using C44_G01_MVC04.DAL.Contexts;
 using C44_G01_MVC04.DAL.Repositories.DepartmentRepo;
 using C44_G01_MVC04.DAL.Repositories.EmployeeRepo;
+using C44_G01_MVC04.DAL.UOW;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Build.Evaluation;
 using Microsoft.EntityFrameworkCore;
@@ -28,9 +29,10 @@ namespace C44_G01_MVC04.PL
                 option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
                 option.UseLazyLoadingProxies();
             });
-            builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            //builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
             builder.Services.AddScoped<IDepartmentServices, DepartmentServices>();
-            builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            //builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             builder.Services.AddScoped<IEmployeeServices, EmployeeServices>();
 
             builder.Services.AddAutoMapper(cfg => { }, (typeof(ProjectMapperProfile)));
