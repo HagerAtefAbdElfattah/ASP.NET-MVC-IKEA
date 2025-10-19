@@ -61,6 +61,7 @@ namespace C44_G01_MVC04.PL.Controllers
                         PhoneNumber = model.PhoneNumber,
                         HiringDate = model.HiringDate,
                         DepartmentId= model.DepartmentId,
+                        Image = model.Image,
                     };
                     int result = employeeServices.AddEmployee(employee);
 
@@ -126,6 +127,7 @@ namespace C44_G01_MVC04.PL.Controllers
                 PhoneNumber = employee.PhoneNumber,
                 HiringDate = employee.HiringDate,
                 DepartmentName = employee.DepartmentName,
+                ImageName = employee.ImageName,
             };
 
             return View(viewEmployee);
@@ -147,6 +149,7 @@ namespace C44_G01_MVC04.PL.Controllers
                 PhoneNumber = model.PhoneNumber,
                 HiringDate = model.HiringDate,
                 DepartmentId = model.DepartmentId,
+                Image = model.Image,
             };
 
             try

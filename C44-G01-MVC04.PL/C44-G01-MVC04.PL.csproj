@@ -19,4 +19,8 @@
     <ProjectReference Include="..\C44-G01-MVC04.BLL\C44-G01-MVC04.BLL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\files\images\" />
+  </ItemGroup>
+
 </Project>

@@ -1,4 +1,5 @@
 using C44_G01_MVC04.BLL.Common.Mappingprofiles;
+using C44_G01_MVC04.BLL.Common.Services.Attachments;
 using C44_G01_MVC04.BLL.Services.DepartmentsServices;
 using C44_G01_MVC04.BLL.Services.EmployeesServices;
 using C44_G01_MVC04.DAL.Contexts;
@@ -34,6 +35,7 @@ namespace C44_G01_MVC04.PL
             builder.Services.AddScoped<IDepartmentServices, DepartmentServices>();
             //builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             builder.Services.AddScoped<IEmployeeServices, EmployeeServices>();
+            builder.Services.AddScoped<IAttachmentServices, AttachmentServices>();
 
             builder.Services.AddAutoMapper(cfg => { }, (typeof(ProjectMapperProfile)));
             var app = builder.Build();
