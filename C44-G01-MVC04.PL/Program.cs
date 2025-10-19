@@ -1,6 +1,7 @@
 using C44_G01_MVC04.BLL.Common.Mappingprofiles;
 using C44_G01_MVC04.BLL.Services.DepartmentsServices;
 using C44_G01_MVC04.BLL.Services.EmployeesServices;
+using C44_G01_MVC04.BLL.Services.ServicesTesting;
 using C44_G01_MVC04.DAL.Contexts;
 using C44_G01_MVC04.DAL.Repositories.DepartmentRepo;
 using C44_G01_MVC04.DAL.Repositories.EmployeeRepo;
@@ -32,6 +33,12 @@ namespace C44_G01_MVC04.PL
             builder.Services.AddScoped<IDepartmentServices, DepartmentServices>();
             builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             builder.Services.AddScoped<IEmployeeServices, EmployeeServices>();
+
+            #region Seesion-7 video2 Scoped-Singleton-Transiant
+            builder.Services.AddScoped<IScopedServices,ScopedServices>();
+            builder.Services.AddSingleton<ISingletonServices, SingletonServices>();
+            builder.Services.AddTransient<ITransiantServices, TransiantServices>();
+            #endregion
 
             builder.Services.AddAutoMapper(cfg => { }, (typeof(ProjectMapperProfile)));
             var app = builder.Build();
