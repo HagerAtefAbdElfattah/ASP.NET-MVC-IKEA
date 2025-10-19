@@ -10,6 +10,8 @@ namespace C44_G01_MVC04.DAL.Repositories.DepartmentRepo
 {
     public interface IDepartmentRepository:IGenericeRepository<Department>
     {
-        
+
+        public IEnumerable<Department> GetAll(string? SearchValue);
+
     }
 }

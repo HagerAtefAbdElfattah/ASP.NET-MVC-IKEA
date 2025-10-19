@@ -27,6 +27,10 @@ namespace C44_G01_MVC04.BLL.Services.EmployeesServices
         public IEnumerable<EmployeeDto> GetAllEmployee()
         => mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeDto>>(_reposatory.GetAll());
 
+
+        public IEnumerable<EmployeeDto> GetSearchedEmployees(string searchValue)
+        => mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeDto>>(_reposatory.GetAll(searchValue));
+
         //break point here to see the generated SQL query
         //{
         //    //var result = _reposatory.GetEnumerable().Where(e => e.IsActive == true)

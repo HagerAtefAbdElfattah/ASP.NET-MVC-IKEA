@@ -1,0 +1,19 @@
+﻿@{
+    string controllerName = ViewBag.ControllerName;
+}
+<div class="bg-light">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <form class="d-flex" asp-action="Index" asp-controller="@controllerName" method="get">
+                    <div class="input-group">
+                        <input class="form-control form-control-lg" type="search" placeholder="Search anything..." aria-label="Search" name="searchValue">
+                        <button class="btn btn-primary px-4" type="submit">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

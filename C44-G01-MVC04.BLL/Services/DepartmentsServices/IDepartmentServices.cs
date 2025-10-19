@@ -11,6 +11,7 @@ namespace C44_G01_MVC04.BLL.Services.DepartmentsServices
     public interface IDepartmentServices
     {
         public IEnumerable<DepartmentDto> GetAllDepartments();
+        public IEnumerable<DepartmentDto> GetSearchedDepartments(string searchValue);
         public DepartmentDetailsDto GetDepartmentById(int id);
         public int AddDepartment(CreatedDepartmentDto department);
         public int UpdateDepartment(UpdatedDepartmentDto department);  

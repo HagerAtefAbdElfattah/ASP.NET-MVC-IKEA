@@ -24,10 +24,13 @@ namespace C44_G01_MVC04.PL.Controllers
             //this.departmentServices = departmentServices;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string? searchValue)
         {
-            var employees = employeeServices.GetAllEmployee();
-            return View(employees);
+            if (searchValue == null)
+                return View(employeeServices.GetAllEmployee());
+            else
+            ;
+            return View(employeeServices.GetSearchedEmployees(searchValue));
         }
 
         [HttpGet]

@@ -21,6 +21,10 @@ namespace C44_G01_MVC04.BLL.Services.DepartmentsServices
         public IEnumerable<DepartmentDto> GetAllDepartments()
         => mapper.Map<IEnumerable<DepartmentDto>>(_reposatory.GetAll());
 
+
+        public IEnumerable<DepartmentDto> GetSearchedDepartments(string searchValue)
+        => mapper.Map<IEnumerable<DepartmentDto>>(_reposatory.GetAll(searchValue));
+
         public DepartmentDetailsDto GetDepartmentById (int id)
         => mapper.Map<Department, DepartmentDetailsDto>(_reposatory.GetById(id));
 

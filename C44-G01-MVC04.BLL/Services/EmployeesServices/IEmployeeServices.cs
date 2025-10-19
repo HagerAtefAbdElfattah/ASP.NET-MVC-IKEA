@@ -13,6 +13,7 @@ namespace C44_G01_MVC04.BLL.Services.EmployeesServices
     public interface IEmployeeServices
     {
         public IEnumerable<EmployeeDto> GetAllEmployee();
+        public IEnumerable<EmployeeDto> GetSearchedEmployees(string searchValue);
         public EmployeeDetailsDto GetEmployeeById(int id);
         public int AddEmployee(CreatedEmployeeDto dto);
         public int UpdateEmployee(UpdatedEmployeeDto dto);

@@ -10,5 +10,6 @@ namespace C44_G01_MVC04.DAL.Repositories.EmployeeRepo
 {
     public interface IEmployeeRepository:IGenericeRepository<Employee>
     {
+        public IEnumerable<Employee> GetAll(string? SearchValue);
     }
 }
