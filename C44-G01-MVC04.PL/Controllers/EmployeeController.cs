@@ -5,10 +5,12 @@ using C44_G01_MVC04.BLL.Services.EmployeesServices;
 using C44_G01_MVC04.PL.ViewModels.DepartmentVms;
 using C44_G01_MVC04.PL.ViewModels.EmployeeVms;
 using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace C44_G01_MVC04.PL.Controllers
 {
+    [Authorize]
     public class EmployeeController : Controller
     {
         private readonly IEmployeeServices employeeServices;
@@ -34,6 +36,7 @@ namespace C44_G01_MVC04.PL.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             //ViewData["Departments"] = departmentServices.GetAllDepartments();
@@ -42,7 +45,8 @@ namespace C44_G01_MVC04.PL.Controllers
        
 
         [HttpPost]
-        
+        [Authorize(Roles = "Admin")]
+
         public IActionResult Create(EmployeeViewModel model)
         {
             try
@@ -104,6 +108,7 @@ namespace C44_G01_MVC04.PL.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult Edit(int? id)
         {
             if (id == null) return BadRequest();

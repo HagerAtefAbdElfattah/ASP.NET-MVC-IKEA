@@ -2,10 +2,12 @@
 using C44_G01_MVC04.BLL.Services.DepartmentsServices;
 using C44_G01_MVC04.DAL.Models.Department;
 using C44_G01_MVC04.PL.ViewModels.DepartmentVms;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace C44_G01_MVC04.PL.Controllers
 {
+    [Authorize]
     public class DepartmentController : Controller
     {
         private readonly IDepartmentServices departmentServices;

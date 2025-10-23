@@ -7,6 +7,7 @@ using C44_G01_MVC04.DAL.Models.Identity;
 using C44_G01_MVC04.DAL.Repositories.DepartmentRepo;
 using C44_G01_MVC04.DAL.Repositories.EmployeeRepo;
 using C44_G01_MVC04.DAL.UOW;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Build.Evaluation;
@@ -42,6 +43,19 @@ namespace C44_G01_MVC04.PL
                 //options.User.RequireUniqueEmail = true;
                 //options.SignIn.RequireConfirmedEmail = false;
             }).AddEntityFrameworkStores<ApplicationDbContext>();
+
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(option => 
+            {
+                option.LoginPath = "/Account/SignIn";
+                option.LogoutPath = "/Account/Logout";
+                option.AccessDeniedPath = "/Account/AccessDenied";
+                option.ExpireTimeSpan = TimeSpan.FromDays(2);
+            });
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Account/SignIn";
+                options.AccessDeniedPath = "/Account/AccessDenied";
+            });
 
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             //builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
