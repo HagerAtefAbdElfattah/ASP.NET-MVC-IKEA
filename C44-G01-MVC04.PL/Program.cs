@@ -42,7 +42,7 @@ namespace C44_G01_MVC04.PL
                 //options.Password.RequireLowercase = true;
                 //options.User.RequireUniqueEmail = true;
                 //options.SignIn.RequireConfirmedEmail = false;
-            }).AddEntityFrameworkStores<ApplicationDbContext>();
+            }).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders(); 
 
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(option => 
             {
