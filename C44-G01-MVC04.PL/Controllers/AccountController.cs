@@ -91,5 +91,11 @@ namespace C44_G01_MVC04.PL.Controllers
             ModelState.AddModelError("", "Invalid Email or Password");
             return View(loginViewModel);
         }
+
+        public IActionResult SignOut()
+        {
+            signInManager.SignOutAsync().GetAwaiter().GetResult();
+            return RedirectToAction(nameof(SignIn));
+        }
     }
 }
