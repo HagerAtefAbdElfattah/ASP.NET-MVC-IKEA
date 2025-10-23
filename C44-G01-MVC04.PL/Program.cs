@@ -43,6 +43,8 @@ namespace C44_G01_MVC04.PL
             
 
             app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseStaticFiles();
             app.MapControllerRoute(
