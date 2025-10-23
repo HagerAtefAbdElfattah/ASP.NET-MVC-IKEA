@@ -1,5 +1,6 @@
 ﻿using C44_G01_MVC04.DAL.Models.Employees;
 using C44_G01_MVC04.DAL.Models.Shared;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -35,5 +36,6 @@ namespace C44_G01_MVC04.BLL.Dto_s.EmployeeDto_s
 
         [Display(Name = "Department")]
         public int? DepartmentId { get; set; }
+        public IFormFile? Image { get; set; }
     }
 }

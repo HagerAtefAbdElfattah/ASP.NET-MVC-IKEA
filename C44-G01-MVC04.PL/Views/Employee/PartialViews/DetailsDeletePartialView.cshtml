@@ -14,6 +14,10 @@
             <input asp-for="Name" class="form-control" readonly />
         </div>
         <div class="form-group mb-3 col-6">
+            <label class="form-label" asp-for="ImageName"></label>
+            <img class="img-fluid w-50 rounded rounded-circle" src="~/files/images/@Model.ImageName" alt="Alternate Text" />
+        </div>
+        <div class="form-group mb-3 col-6">
             <label class="form-label" asp-for="Email"></label>
             <input asp-for="Email" class="form-control" readonly />
         </div>

@@ -29,23 +29,19 @@ namespace C44_G01_MVC04.DAL.Repositories.GenericRepository
             var entity = _context.Set<TEntity>().Find(id);
             return entity;
         }
-        public int Add(TEntity Item)
+        public void Add(TEntity Item)
         {
             _context.Set<TEntity>().Add(Item);
-            return _context.SaveChanges();
         }
 
-        public int Update(TEntity Item)
+        public void Update(TEntity Item)
         {
-            _context.Set<TEntity>().Update(Item);
-            return _context.SaveChanges();
-        }
+            _context.Set<TEntity>().Update(Item);        }
 
-        public int Delete(int id)
+        public void Delete(int id)
         {
             var entity = _context.Set<TEntity>().Find(id);
             _context.Set<TEntity>().Remove(entity);
-            return _context.SaveChanges();
         }
 
         //public IEnumerable<TEntity> GetEnumerable()

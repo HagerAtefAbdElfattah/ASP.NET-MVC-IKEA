@@ -22,5 +22,6 @@ namespace C44_G01_MVC04.BLL.Dto_s.EmployeeDto_s
         [Display(Name = "Employee Type")]
         public string EmployeeType { get; set; }
         public string? DepartmentName { get; set; } 
+        public string? ImageName { get; set; }
     }
 }

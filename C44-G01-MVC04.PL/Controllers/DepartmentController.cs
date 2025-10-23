@@ -2,10 +2,12 @@
 using C44_G01_MVC04.BLL.Services.DepartmentsServices;
 using C44_G01_MVC04.DAL.Models.Department;
 using C44_G01_MVC04.PL.ViewModels.DepartmentVms;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace C44_G01_MVC04.PL.Controllers
 {
+    [Authorize]
     public class DepartmentController : Controller
     {
         private readonly IDepartmentServices departmentServices;
@@ -19,7 +21,7 @@ namespace C44_G01_MVC04.PL.Controllers
             this.webHost = webHost;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string? searchValue)
         {
             //viewData is type of dictionary
             // key is string and value is object
@@ -33,10 +35,11 @@ namespace C44_G01_MVC04.PL.Controllers
             // it is used to pass data from controller to view
             // it is used for small amount of data
             // it use implicit casting
-            ViewBag.Message = "Hello from View Bag";
-
-            var dept = departmentServices.GetAllDepartments();
-            return View(dept);
+            //ViewBag.Message = "Hello from View Bag";
+            if (searchValue == null)
+                return View(departmentServices.GetAllDepartments());
+            else 
+                return View( departmentServices.GetSearchedDepartments(searchValue));
         }
 
         [HttpGet]

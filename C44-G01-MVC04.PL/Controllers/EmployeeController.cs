@@ -5,10 +5,12 @@ using C44_G01_MVC04.BLL.Services.EmployeesServices;
 using C44_G01_MVC04.PL.ViewModels.DepartmentVms;
 using C44_G01_MVC04.PL.ViewModels.EmployeeVms;
 using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace C44_G01_MVC04.PL.Controllers
 {
+    [Authorize]
     public class EmployeeController : Controller
     {
         private readonly IEmployeeServices employeeServices;
@@ -24,13 +26,17 @@ namespace C44_G01_MVC04.PL.Controllers
             //this.departmentServices = departmentServices;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string? searchValue)
         {
-            var employees = employeeServices.GetAllEmployee();
-            return View(employees);
+            if (searchValue == null)
+                return View(employeeServices.GetAllEmployee());
+            else
+            ;
+            return View(employeeServices.GetSearchedEmployees(searchValue));
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             //ViewData["Departments"] = departmentServices.GetAllDepartments();
@@ -39,7 +45,8 @@ namespace C44_G01_MVC04.PL.Controllers
        
 
         [HttpPost]
-        
+        [Authorize(Roles = "Admin")]
+
         public IActionResult Create(EmployeeViewModel model)
         {
             try
@@ -58,6 +65,7 @@ namespace C44_G01_MVC04.PL.Controllers
                         PhoneNumber = model.PhoneNumber,
                         HiringDate = model.HiringDate,
                         DepartmentId= model.DepartmentId,
+                        Image = model.Image,
                     };
                     int result = employeeServices.AddEmployee(employee);
 
@@ -100,6 +108,7 @@ namespace C44_G01_MVC04.PL.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult Edit(int? id)
         {
             if (id == null) return BadRequest();
@@ -123,6 +132,7 @@ namespace C44_G01_MVC04.PL.Controllers
                 PhoneNumber = employee.PhoneNumber,
                 HiringDate = employee.HiringDate,
                 DepartmentName = employee.DepartmentName,
+                ImageName = employee.ImageName,
             };
 
             return View(viewEmployee);
@@ -144,6 +154,7 @@ namespace C44_G01_MVC04.PL.Controllers
                 PhoneNumber = model.PhoneNumber,
                 HiringDate = model.HiringDate,
                 DepartmentId = model.DepartmentId,
+                Image = model.Image,
             };
 
             try

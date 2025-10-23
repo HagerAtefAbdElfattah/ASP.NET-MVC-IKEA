@@ -1,6 +1,7 @@
 ﻿ @model IEnumerable<EmployeeDto>
 @{
     ViewData["Title"] = "Index";
+    ViewBag.ControllerName = "Employee";
 }
 
 <h1>All Employees</h1>
@@ -10,10 +11,12 @@
 <br />
 @if (Model.Any())
 {
+    <partial name="../Shared/SearchPartialView" />
     <table class="table table-striped table-hover mt-3">
         <thead class="text-center">
             <tr>
                 <th>@Html.DisplayNameFor(e => e.Name)</th>
+                <th>@Html.DisplayNameFor(e => e.ImageName)</th>
                 <th>@Html.DisplayNameFor(e => e.Email)</th>
                 <th>@Html.DisplayNameFor(e => e.EmployeeType)</th>
                 <th>Department</th>
@@ -32,6 +35,7 @@
                 <tr>
 
                     <td>@employee.Name</td>
+                    <td><img class="img-fluid w-25 rounded rounded-circle" src="~/files/images/@employee.ImageName" /></td>
                     <td>@employee.Email</td>
                     <td>@employee.EmployeeType</td>
                     <td>@employee.DepartmentName</td>

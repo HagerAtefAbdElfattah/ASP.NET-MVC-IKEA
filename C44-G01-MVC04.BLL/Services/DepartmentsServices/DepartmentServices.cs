@@ -4,25 +4,30 @@ using C44_G01_MVC04.BLL.Dto_s.DepartmentDto_s;
 using C44_G01_MVC04.BLL.Factories.DepartmentFactory;
 using C44_G01_MVC04.DAL.Models.Department;
 using C44_G01_MVC04.DAL.Repositories.DepartmentRepo;
+using C44_G01_MVC04.DAL.UOW;
 
 namespace C44_G01_MVC04.BLL.Services.DepartmentsServices
 {
     public class DepartmentServices: IDepartmentServices
     {
-        private readonly IDepartmentRepository _reposatory;
+        private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
 
-        public DepartmentServices(IDepartmentRepository reposatory, IMapper mapper)
+        public DepartmentServices(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _reposatory = reposatory;
+            this.unitOfWork = unitOfWork;
             this.mapper = mapper;
         }
 
         public IEnumerable<DepartmentDto> GetAllDepartments()
-        => mapper.Map<IEnumerable<DepartmentDto>>(_reposatory.GetAll());
+        => mapper.Map<IEnumerable<DepartmentDto>>(unitOfWork.DepartmentRepository.GetAll());
+
+
+        public IEnumerable<DepartmentDto> GetSearchedDepartments(string searchValue)
+        => mapper.Map<IEnumerable<DepartmentDto>>(unitOfWork.DepartmentRepository.GetAll(searchValue));
 
         public DepartmentDetailsDto GetDepartmentById (int id)
-        => mapper.Map<Department, DepartmentDetailsDto>(_reposatory.GetById(id));
+        => mapper.Map<Department, DepartmentDetailsDto>(unitOfWork.DepartmentRepository.GetById(id));
 
 
         public int AddDepartment(CreatedDepartmentDto cDepartment)
@@ -32,7 +37,8 @@ namespace C44_G01_MVC04.BLL.Services.DepartmentsServices
             dept.CreatedOn = DateTime.Now;
             dept.LastModifiedBy = 1;
             dept.LastModifiedOn = DateTime.Now;
-            return _reposatory.Add(dept);
+            unitOfWork.DepartmentRepository.Add(dept);
+            return unitOfWork.Complete();
         }
 
         public int UpdateDepartment(UpdatedDepartmentDto updated)
@@ -40,11 +46,14 @@ namespace C44_G01_MVC04.BLL.Services.DepartmentsServices
            var dept = mapper.Map<UpdatedDepartmentDto,Department>(updated);
             dept.LastModifiedBy = 1;
             dept.LastModifiedOn = DateTime.Now;
-            return _reposatory.Update(dept);
+            unitOfWork.DepartmentRepository.Update(dept);
+            return unitOfWork.Complete();
         }
 
         public int DeleteDepartment(int id)
-        => _reposatory.Delete(id);
-
+        {  
+            unitOfWork.DepartmentRepository.Delete(id);
+            return unitOfWork.Complete();
+        }
     }
 }
