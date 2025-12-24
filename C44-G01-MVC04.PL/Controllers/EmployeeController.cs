@@ -154,6 +154,7 @@ namespace C44_G01_MVC04.PL.Controllers
                 PhoneNumber = model.PhoneNumber,
                 HiringDate = model.HiringDate,
                 DepartmentId = model.DepartmentId,
+                ImageName = model.ImageName,
                 Image = model.Image,
             };
 
